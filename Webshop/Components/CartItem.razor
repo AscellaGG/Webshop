@@ -1,0 +1,30 @@
+﻿
+
+<div class="product">
+    <img src="@Product.ImgUrl" />
+    <p>@Product.ProductName x @Quantity</p>
+    <p>@GetPrice():-</p>
+    @*<input type="number" @bind-value="Quantity" />*@
+    <button class="btn remove-button" @onclick="RemoveProduct">Remove</button>
+</div>
+
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+    [Parameter]
+    public int Quantity { get; set; } = 0;
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
+    public float GetPrice()
+    {
+        var price = Product.Price * Quantity;
+        return price;
+    }
+
+    public async Task RemoveProduct()
+    {
+        await OnDelete.InvokeAsync();
+    }
+}

@@ -1,0 +1,37 @@
+﻿@page "/"
+@inject NavigationManager navManager
+@inject DataAccess dataAccess
+
+<PageTitle>Home</PageTitle>
+
+@* <header>
+    <h1>TAYLOR SWIFT</h1>
+    <div class="cart-wrapper">
+        <button class="btn cart" @onclick="GoToCart"><img src="images/cart-shopping-solid.svg" /></button>
+        <p class="bottom-right">@dataAccess.GetCartSize()</p>
+    </div>
+</header>
+ *@
+<div class="center">
+    <section id="product-grid">
+        @foreach (var product in Products)
+        {
+            <Product ProductName="@product.ProductName" Price="product.Price" ImgUrl="@product.ImgUrl" Id="@product.Id"/>
+        }
+    </section>
+</div>
+
+
+@code {
+    public List<Product> Products { get; set; } = new List<Product>();
+
+    protected override void OnInitialized()
+    {
+        Products = dataAccess.GetProducts();
+    }
+    
+    public void GoToProduct(int id)
+    {
+        navManager.NavigateTo("/product/" + id);
+    }
+}

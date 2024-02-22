@@ -1,0 +1,59 @@
+
+
+
+.title-bar {
+    padding: 40px;
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: #EDECE8;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 50px auto 50px;
+}
+
+.title-bar img {
+    width: 30px
+}
+
+.cart-wrapper {
+    position: relative;
+    text-align: center;
+}
+
+.bottom-right {
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 0;
+    width: 24px;
+    border-radius: 50%;
+}
+
+.title-bar h1 {
+    grid-column-start: 2;
+    font-size: medium;
+    letter-spacing: 3px;
+    margin: 0;
+    line-height: 40px;
+}
+
+
+
+
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.content {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+}

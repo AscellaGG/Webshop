@@ -1,0 +1,50 @@
+﻿.center {
+    width: 90%;
+    margin: auto;
+}
+
+header {
+    padding: 40px;
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: #EDECE8;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 50px auto 50px;
+}
+
+.cart img {
+    width: 100%;
+}
+
+.cart-wrapper {
+    position: relative;
+    text-align: center;
+}
+
+.bottom-right {
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 0;
+    width: 24px;
+    border-radius: 50%;
+}
+
+header h1 {
+    grid-column-start: 2;
+    font-size: medium;
+    letter-spacing: 3px;
+    margin: 0;
+    line-height: 40px;
+}
+
+#product-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    justify-content: center;
+}

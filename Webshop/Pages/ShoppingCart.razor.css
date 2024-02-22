@@ -1,0 +1,32 @@
+﻿section {
+    text-align: center;
+}
+
+header {
+    padding: 40px;
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: #EDECE8;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 50px auto 50px;
+}
+
+header h1 {
+    grid-column-start: 2;
+    font-size: medium;
+    letter-spacing: 3px;
+    margin: 0;
+    line-height: 40px;
+}
+
+.cart {
+    margin: 50px;
+}
+
+#next-button {
+    font-size: larger;
+    font-weight: bold;
+    color: #6C6054;
+}

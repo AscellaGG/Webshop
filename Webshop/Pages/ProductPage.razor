@@ -1,0 +1,24 @@
+﻿@page "/product/{id:int}"
+@inject DataAccess dataAccess
+
+<h3>ProductPage</h3>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+	public Product Product { get; set; }
+
+	// protected override async Task OnInitializedAsync()
+	// {
+	// 	if (Id > -1)
+	// 	{
+	// 		// var result = await cd.GetMovieById(Id);
+	// 		// if (result is not null)
+	// 		// {
+	// 		// 	editMode = true;
+	// 		// 	movie = result;
+			
+	// 	}
+	// }
+
+}

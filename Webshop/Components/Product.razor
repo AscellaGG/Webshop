@@ -1,0 +1,42 @@
+﻿@inject DataAccess dataAccess
+@inject NavigationManager navManager
+@inject ILocalStorageService localStorage
+
+<div class="product" @onclick="GoToProductPage">
+    <img src="@ImgUrl" />
+    <h2>@ProductName</h2>
+    <div class="bottom" @onclick:stopPropagation="true" @onclick:preventDefault="true">
+        <p>@Price:-</p>
+        <button class="btn buy-button slide" @onclick="AddToCart">Add to Cart</button>
+    </div>
+    
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    [Parameter]
+    public string ProductName { get; set; } 
+    [Parameter]
+    public string ImgUrl { get; set; }
+    [Parameter]
+    public string Description { get; set; }
+    [Parameter]
+    public float Price  { get; set; }
+
+    public async Task AddToCart()
+    {
+        dataAccess.AddToCart(new CartItem()
+        {
+            Product = dataAccess.GetProductById(Id),
+            Quantity = 1
+        });
+
+        await localStorage.SetItemAsync<List<CartItem>>("CartItem", dataAccess.GetCart());
+    }
+
+    public void GoToProductPage()
+    {
+        navManager.NavigateTo("/product/" + Id);
+    }
+}

@@ -1,0 +1,35 @@
+﻿@inherits LayoutComponentBase
+@inject DataAccess dataAccess
+@inject NavigationManager navManager
+
+<div class="page">
+    
+    <main>
+
+        <div class="title-bar">
+            <button class="btn arrow" @onclick="GoToStart"><img src="images/arrow-left-solid.svg" /></button>
+            <h1>TAYLOR SWIFT</h1>
+            <div class="cart-wrapper">
+                <button class="btn cart" @onclick="GoToCart"><img src="images/cart-shopping-solid.svg" /></button>
+                @*<p class="bottom-right">@{dataAccess.GetCartSize();}</p>*@
+            </div>
+        </div>
+
+
+        <article class="content">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    public void GoToCart()
+    {
+        navManager.NavigateTo("/cart");
+    }
+
+    public void GoToStart()
+    {
+        navManager.NavigateTo("/");
+    }
+}

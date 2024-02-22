@@ -1,0 +1,53 @@
+﻿@page "/cart"
+@inject DataAccess dataAccess
+@inject NavigationManager navManager
+@inject ILocalStorageService localStorage
+
+<section>
+    @* <header>
+        <button class="btn arrow" @onclick="GoToStart"><img src="images/arrow-left-solid.svg" /></button>
+        <h1>TAYLOR SWIFT</h1> 
+    </header> *@
+    <div class="cart">
+        <h1>Cart</h1>
+        <ul>
+            @foreach (var item in CartItems)
+            {
+                <CartItem Product="item.Product" Quantity="item.Quantity" OnDelete="() => RemoveProduct(item)"></CartItem>
+            }
+        </ul>
+    </div>
+
+    <div class="order-details">
+        <form action="/" method="post"></form>
+    </div>
+    <button class="btn" id="next-button" @onclick="GoToOrderDetails">Next</button>
+    
+</section>
+
+@code {
+    public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var cartItems = await localStorage.GetItemAsync<List<CartItem>>("CartItem");
+
+        if(cartItems is not null)
+        {
+            CartItems = cartItems;
+            dataAccess.SetCart(cartItems);
+        }
+    }
+
+    public async Task RemoveProduct(CartItem item)
+    {
+        CartItems.Remove(item);
+        dataAccess.SetCart(CartItems);
+        await localStorage.SetItemAsync<List<CartItem>>("CartItem", dataAccess.GetCart());
+    }
+
+    public void GoToOrderDetails()
+    {
+        navManager.NavigateTo("/order");
+    }
+}
