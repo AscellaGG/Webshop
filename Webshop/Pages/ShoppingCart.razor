@@ -10,23 +10,51 @@
     </header> *@
     <div class="cart">
         <h1>Cart</h1>
-        <ul>
-            @foreach (var item in CartItems)
-            {
-                <CartItem Product="item.Product" Quantity="item.Quantity" OnDelete="() => RemoveProduct(item)"></CartItem>
-            }
-        </ul>
+        @if(!IsCartEmpty)
+        {
+            <ul style="padding: 0;">
+                @foreach (var item in CartItems)
+                {
+                    <CartItem Product="item.Product" Quantity="item.Quantity" OnDelete="() => RemoveProduct(item)"></CartItem>
+                }
+            </ul>
+        } else
+        {
+            <h3>Your cart is empty!</h3>
+        }
+        <h4 style="margin-top: 50px;">Total: @TotalCost SEK</h4>
     </div>
 
     <div class="order-details">
-        <form action="/" method="post"></form>
-    </div>
-    <button class="btn" id="next-button" @onclick="GoToOrderDetails">Next</button>
+        <EditForm Model="@OrderDetails" OnSubmit="@FormSubmitted">
+            <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <InputText @bind-Value="OrderDetails.FirstName" class="form-control">@OrderDetails.FirstName</InputText>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <InputText @bind-Value="OrderDetails.LastName" class="form-control">@OrderDetails.LastName</InputText>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <InputText @bind-Value="OrderDetails.Address" class="form-control">@OrderDetails.Address</InputText>
+            </div>
+            <div style="text-align:center; margin-bottom: 100px;">
+                <input type="submit" value="Order" class="btn next-button" />
+            </div>
+            
+        </EditForm>
+    </div>    
     
 </section>
 
 @code {
     public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+    public bool IsCartEmpty { get; set; } = true;
+    public float TotalCost { get; set; } = 0;
+
+    OrderDetails OrderDetails = new OrderDetails();
 
     protected override async Task OnInitializedAsync()
     {
@@ -36,6 +64,16 @@
         {
             CartItems = cartItems;
             dataAccess.SetCart(cartItems);
+
+            if(CartItems.Count > 0)
+            {
+                IsCartEmpty = false;
+            }
+        }
+
+        foreach(var item in CartItems)
+        {
+            TotalCost += item.Product.Price * item.Quantity;
         }
     }
 
@@ -43,11 +81,31 @@
     {
         CartItems.Remove(item);
         dataAccess.SetCart(CartItems);
-        await localStorage.SetItemAsync<List<CartItem>>("CartItem", dataAccess.GetCart());
+        var cart = await dataAccess.GetCart();
+        await localStorage.SetItemAsync<List<CartItem>>("CartItem", cart);
+
+        TotalCost -= item.Product.Price * item.Quantity;
+
+        if(CartItems.Count <= 0)
+        {
+            IsCartEmpty = true;
+        }
     }
 
     public void GoToOrderDetails()
     {
         navManager.NavigateTo("/order");
+    }
+
+    public async Task FormSubmitted()
+    {
+        OrderDetails.Cart = CartItems;
+        await localStorage.SetItemAsync<OrderDetails>("OrderDetails", OrderDetails);
+
+        List<CartItem> emptyCart = new List<CartItem>();
+        await dataAccess.SetCart(emptyCart);
+        await localStorage.SetItemAsync<List<CartItem>>("CartItem", emptyCart);
+
+        navManager.NavigateTo("/orderconfirmation");
     }
 }

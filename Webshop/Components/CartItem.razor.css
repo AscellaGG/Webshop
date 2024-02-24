@@ -3,7 +3,7 @@
 
 .product {
     display: grid;
-    width: 50%;
+    width: 60%;
     margin: auto;
     padding: 20px 0;
     border-bottom: solid 1px #6C6054;
@@ -11,6 +11,15 @@
     line-height: 80px;
 }
 
+.product-ordered {
+    display: grid;
+    width: 40%;
+    margin: auto;
+    padding: 20px 0;
+    border-bottom: solid 1px #6C6054;
+    grid-template-columns: 20% 60% 20%;
+    line-height: 80px;
+}
 
 img {
     width: 80px;

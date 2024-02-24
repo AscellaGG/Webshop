@@ -1,0 +1,26 @@
+﻿
+<div class="order-details">
+    <div class="order-text">
+        <h4 style="margin-bottom: 40px;">Order Details:</h4>
+        <p>@FirstName @LastName</p>
+        <p>@Address</p>
+    </div>
+    <div class="order-items">
+        <h4>Ordered Items:</h4>
+        @foreach (var item in Cart)
+        {
+            <CartItem Product="item.Product" Quantity="item.Quantity" IsOrdered=true></CartItem>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string FirstName { get; set; }
+    [Parameter]
+    public string LastName { get; set; }
+    [Parameter]
+    public string Address { get; set; }
+    [Parameter]
+    public List<CartItem> Cart { get; set; } = [];
+}

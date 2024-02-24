@@ -1,24 +1,56 @@
 ﻿@page "/product/{id:int}"
 @inject DataAccess dataAccess
+@inject ILocalStorageService localStorage
 
-<h3>ProductPage</h3>
+
+<section>
+	<div class="product-info">		
+		<img src="@Product.ImgUrl" />
+		<div class="product-text">
+			<h3>@Product.ProductName</h3>
+			<p>@Product.Description</p>
+			<div class="bottom" @onclick:stopPropagation="true" @onclick:preventDefault="true">
+				<p>@Product.Price:-</p>
+				<button class="btn buy-button slide" @onclick="AddToCart">Add to Cart</button>
+			</div>
+		</div>
+	</div>
+</section>
 
 @code {
 	[Parameter]
 	public int Id { get; set; }
 	public Product Product { get; set; }
 
-	// protected override async Task OnInitializedAsync()
-	// {
-	// 	if (Id > -1)
-	// 	{
-	// 		// var result = await cd.GetMovieById(Id);
-	// 		// if (result is not null)
-	// 		// {
-	// 		// 	editMode = true;
-	// 		// 	movie = result;
+	protected override async Task OnInitializedAsync()
+	{
+		if (Id > -1)
+		{
+			var result = await dataAccess.GetProductById(Id);
+			if (result is not null)
+			{
+				Product = result;
+			}
+			// var result = await cd.GetMovieById(Id);
+			// if (result is not null)
+			// {
+			// 	editMode = true;
+			// 	movie = result;
 			
-	// 	}
-	// }
+		}
+	}
+
+	public async Task AddToCart()
+	{
+		await dataAccess.AddToCart(new CartItem()
+			{
+				Product = await dataAccess.GetProductById(Id),
+				Quantity = 1
+			});
+
+		var cart = await dataAccess.GetCart();
+
+		await localStorage.SetItemAsync<List<CartItem>>("CartItem", cart);
+	}
 
 }

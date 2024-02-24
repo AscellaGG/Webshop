@@ -11,8 +11,8 @@ public class DataAccess
 
 	public DataAccess()
 	{
-        _products.Add(new Product { Id = NextItemId, ProductName = "The Tortured Poets Department", Price = 215f, ImgUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/220px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png" });
-        _products.Add(new Product{ Id = NextItemId, ProductName = "1989 (Taylor's Version)", Price = 215f, ImgUrl = "https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png" });
+        _products.Add(new Product { Id = NextItemId, ProductName = "The Tortured Poets Department", Price = 215f, ImgUrl = "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png", Description = "Taylor's 11th album. Releasing April 19."});
+        _products.Add(new Product{ Id = NextItemId, ProductName = "1989 (Taylor's Version)", Price = 215f, ImgUrl = "https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png", Description = "1989 (Taylor's Version) is the fourth re-recorded album." });
 		_products.Add(new Product{ Id = NextItemId, ProductName = "Midnights", Price = 215f, ImgUrl = "https://www.billboard.com/wp-content/uploads/2022/10/taylor-swift-midnights-album-cover-2022-billboard-1240.jpg?w=1024" });
 		_products.Add(new Product{ Id = NextItemId, ProductName = "Fearless (Taylor's Version)", Price = 215f, ImgUrl = "https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1240-1617974663.jpg?w=1024" });
 		_products.Add(new Product{ Id = NextItemId, ProductName = "Folklore", Price = 215f, ImgUrl = "https://www.billboard.com/wp-content/uploads/2020/12/Taylor-swift-folklore-cover-billboard-1240-1607121703.jpg?w=1024" });
@@ -22,16 +22,16 @@ public class DataAccess
 		_products.Add(new Product{ Id = NextItemId, ProductName = "Red (Taylor's Version)", Price = 215f, ImgUrl = "https://www.billboard.com/wp-content/uploads/2022/10/taylor-swift-red-taylors-version-billboard-1240.jpg?w=768" });
 	}
 
-	public List<Product> GetProducts() { return _products; }
+	public async Task<List<Product>> GetProducts() { return _products; }
 
-	public List<CartItem> GetCart() { return _cartItems; }
+	public async Task<List<CartItem>> GetCart() { return _cartItems; }
 
-	public void SetCart(List<CartItem> cartItems)
+	public async Task SetCart(List<CartItem> cartItems)
 	{
 		_cartItems = cartItems;
 	}
 
-	public void AddToCart(CartItem item)
+	public async Task AddToCart(CartItem item)
 	{
 		if(_cartItems.Any(i => i.Product.Id == item.Product.Id))
 		{
@@ -43,12 +43,12 @@ public class DataAccess
         }
 	}
 
-	public Product GetProductById(int id)
+	public async Task<Product> GetProductById(int id)
 	{
 		return _products.Find(p => p.Id == id);
 	}
 
-	public int GetCartSize()
+	public async Task<int> GetCartSize()
 	{
 		int size = 0;
 		foreach (var item in _cartItems)
@@ -58,6 +58,8 @@ public class DataAccess
 
 		return size;
 	}
+
+
 
 }
 

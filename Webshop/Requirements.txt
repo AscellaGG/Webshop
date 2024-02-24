@@ -1,0 +1,30 @@
+- Appen ska ha en startsida med en lista av produkter 
+
+- Appen ska innehålla minst 5 produkter
+
+- En Produkt innehåller information som namn, beskrivning, id, bild-url och pris
+
+- Produkterna ska visas upp med hjälp av Razor-komponenter på startsidan, dessa
+komponenter ska inte visa upp all information om produkten utan bara en överblick.
+
+- Komponenten ska innehålla en knapp som lägger till produkten i en varukorg, denna ska
+lagras i localStorage (localStorage är valfritt att använda i VG, inget krav)
+
+- Om man klickar på komponenten ska man komma till en produktsida där man kan få all
+information om produkten och även lägga till den i varukorgen
+
+- Man ska kunna navigera till den sidan via sökfältet i webbläsaren (t.ex. localhost/product/1)
+
+- Man ska kunna navigera till varukorgen via en knapp/länk, sidan ska visa upp vad man lagt i
+varukorgen och innehålla ett formulär där man fyller i addressuppgifter.
+
+- När man skickar iväg formuläret ska man komma till en bekräftelsesida där informationen om
+ens beställning ska visas upp, dvs. vilka produkter man köpt och ens namn/address från
+formuläret.
+
+- När beställningen är klar så ska varukorgen tömmas.
+
+- All data i “godkänt”-scenariot kan vara statisk och skapas på ett liknande sätt som i er
+CarRental-inlämning
+
+- Man behöver inte kombinera Blazor Server och Blazor WebAssembly

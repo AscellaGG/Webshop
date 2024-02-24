@@ -26,13 +26,15 @@
 
     public async Task AddToCart()
     {
-        dataAccess.AddToCart(new CartItem()
+        await dataAccess.AddToCart(new CartItem()
         {
-            Product = dataAccess.GetProductById(Id),
+            Product = await dataAccess.GetProductById(Id),
             Quantity = 1
         });
 
-        await localStorage.SetItemAsync<List<CartItem>>("CartItem", dataAccess.GetCart());
+        var cart = await dataAccess.GetCart();
+
+        await localStorage.SetItemAsync<List<CartItem>>("CartItem", cart);
     }
 
     public void GoToProductPage()

@@ -25,9 +25,9 @@
 @code {
     public List<Product> Products { get; set; } = new List<Product>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Products = dataAccess.GetProducts();
+        Products = await dataAccess.GetProducts();
     }
     
     public void GoToProduct(int id)

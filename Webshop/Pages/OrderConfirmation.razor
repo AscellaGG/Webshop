@@ -1,0 +1,20 @@
+﻿@page "/orderconfirmation"
+@inject ILocalStorageService localStorage
+
+<h3 style="text-align:center; border-bottom: solid 1px #6C6054; width: 60%; margin: auto; padding: 20px;">Order Confirmation</h3>
+
+<OrderDetails FirstName="@OrderDetails.FirstName" LastName="@OrderDetails.LastName" Address="@OrderDetails.Address" Cart="OrderDetails.Cart"/>
+
+@code {
+    public OrderDetails OrderDetails { get; set; } = new OrderDetails();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var orderDetails = await localStorage.GetItemAsync<OrderDetails>("OrderDetails");
+
+        if (orderDetails is not null)
+        {
+            OrderDetails = orderDetails;
+        }
+    }
+}

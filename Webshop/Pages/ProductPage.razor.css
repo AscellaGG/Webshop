@@ -1,0 +1,49 @@
+﻿section {   
+    width: 80%;
+    margin: 30px auto;
+}
+
+.product-info {
+    display: flex;
+    margin: 80px;
+    padding: 30px;
+
+}
+
+.product-text {
+    width: 100%;
+    float: right;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+h3 {
+}
+
+img {
+    width: 300px;
+}
+
+p {
+}
+
+.buy-button {
+    border: solid 1px #9E958B;
+    border-radius: 0;
+    color: #6C6054;
+    width: 80%;
+    font-weight: bold;
+    transition: 0.6s;
+}
+
+.slide:hover, .slide:focus {
+    box-shadow: inset 18em 0 0 0 #E5E2DF;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 20px;
+    width: 50%;    
+    left: 25%;
+}
